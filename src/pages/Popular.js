@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default function popular () {
+export default function Popular () {
     return <div>Estamos en popular</div>
 }

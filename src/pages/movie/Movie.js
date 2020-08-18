@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default function movie () {
+export default function Movie () {
     return <div>Estamos en movie</div>
 }

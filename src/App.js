@@ -1,15 +1,16 @@
 import React from 'react'
 import { Layout } from 'antd'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import MenuHeader from './components/MenuHeader'
 
 //IMPORT PAGES
 
-import Home from './pages/home'
+import Home from './pages/Home'
 import Movie from './pages/movie'
-import Error404 from './pages/error404'
-import Popular from './pages/popular'
-import Search from './pages/search'
-import NewMovies from './pages/new-movies'
+import Error404 from './pages/Error404'
+import Popular from './pages/Popular'
+import Search from './pages/Search'
+import NewMovies from './pages/New-movies'
 
 function App () {
     const { Header, Content } = Layout
@@ -17,7 +18,9 @@ function App () {
     return (
         <Layout>
             <Router>
-                <Header>headerr..........</Header>
+                <Header>
+                    <MenuHeader />
+                </Header>
                 <Content>
                     <Switch>
                         <Route path="/" exact={true}>
