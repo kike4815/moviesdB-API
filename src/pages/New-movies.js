@@ -25,8 +25,6 @@ export default function NewMovies () {
         setPage(page)
     }
 
-    console.log(listMovies)
-
     return (
         <Row>
             <Col span={24} style={{ textAlign: 'center', marginTop: 20 }}>
