@@ -1,10 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Col, Row, Button } from 'antd'
 import Loading from '../../components/Loading'
 import { URL_API, API } from '../../utils/constants'
 import useFetch from '../../Hooks/useFetch'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
+import ModalVideo from '../../components/ModalVideo'
+import {PlayCircleOutlined} from '@ant-design/icons'
 
 import './Movie.scss'
 
@@ -12,7 +14,7 @@ export default function Movie () {
     const { id } = useParams()
 
     const movie = useFetch(`${URL_API}/movie/${id}?api_key=${API}&language=es-ES`)
-    console.log(movie)
+    
 
     if (movie.loading || !movie.result) {
         return <Loading />
@@ -50,6 +52,36 @@ function RenderPoster (props) {
 
 function MoreInfo (props) {
     const { overview: { id, title, overview, genres, release_date } } = props
+    const [isVisible, setIsVisible] = useState(false)
+    const videoMovie = useFetch(`${URL_API}/movie/${id}/videos?api_key=${API}&language=es-ES`)
+
+    const openModal = () => setIsVisible(true)
+    const closeModal = () => setIsVisible(false)
+
+    const renderVideo = () => {
+        if (videoMovie.result){
+            if(videoMovie.result.results){
+                if(videoMovie.result.results.length > 0) {
+
+                    return (
+                        
+                        <>
+                <Button icon={<PlayCircleOutlined />} onClick={openModal}>
+                Ver Trailer
+            </Button>
+            <ModalVideo 
+            videokey={videoMovie.result.results[0].key}
+            videoPlatform={videoMovie.result.results[0].site}
+            isOpen={isVisible}
+            isClose={closeModal}
+            />
+            
+                </>
+                   ) 
+                }
+            }
+        }
+    }
 
     return (
         <>
@@ -58,9 +90,7 @@ function MoreInfo (props) {
                 {title}
                 <span>{moment(release_date, 'YYYY-MM-DD').format('YYYY')}</span>
             </h1>
-            <button>
-                Ver Trailer
-            </button>
+         {renderVideo()}
         </div>
         <div className='movie__info-content'>
         <h3>General</h3>
