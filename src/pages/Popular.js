@@ -8,7 +8,7 @@ import Pagination from '../components/Pagination'
 
 
 export default function Popular () {
-    const [ listMovies, setListMovies ] = useState([])
+    const [ movies, setMovies ] = useState([])
     const [ page, setPage ] = useState(1)
 
     useEffect(
@@ -16,7 +16,7 @@ export default function Popular () {
             (async () => {
                 const response = await fetch(`${URL_API}/movie/popular?api_key=${API}&language=es-ES&page=${page}`)
                 const movies = await response.json()
-                setListMovies(movies)
+                setMovies(movies)
             })();
         },
         [ page ]
@@ -31,14 +31,14 @@ export default function Popular () {
                 <h1 style={{ fontSize: 25, fontWeight: 'bold', fontStyle: 'italic' }}>Películas Populares</h1>
             </Col>
 
-            {listMovies.results ? (
+            {movies.results ? (
                 <Col span="24">
                     <Row>
-                        <MovieCatalog listMovies={listMovies} />
+                        <MovieCatalog movies={movies} />
                         <Col span={24}>
                             <Pagination
-                                currentPage={listMovies.page}
-                                totalItems={listMovies.total_results}
+                                currentPage={movies.page}
+                                totalItems={movies.total_results}
                                 onChangePage={onChangePage}
                             />
                         </Col>

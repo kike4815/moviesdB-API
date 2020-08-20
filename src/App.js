@@ -7,9 +7,9 @@ import MenuHeader from './components/MenuHeader'
 
 import Home from './pages/Home'
 import Movie from './pages/movie'
-import Error404 from './pages/Error404'
+import Error404 from './pages/Error404/Error404'
 import Popular from './pages/Popular'
-import Search from './pages/Search'
+import Search from './pages/Search/Search'
 import NewMovies from './pages/New-movies'
 
 function App () {

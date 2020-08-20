@@ -7,7 +7,7 @@ import MovieCatalog from '../components/MovieCatalog'
 import Pagination from '../components/Pagination'
 
 export default function NewMovies () {
-    const [ listMovies, setListMovies ] = useState([])
+    const [ movies, setMovies ] = useState([])
     const [ page, setPage ] = useState(1)
 
     useEffect(
@@ -15,7 +15,7 @@ export default function NewMovies () {
             (async () => {
                 const response = await fetch(`${URL_API}/movie/now_playing?api_key=${API}&language=es-ES&page=${page}`)
                 const movies = await response.json()
-                setListMovies(movies)
+                setMovies(movies)
             })();
         },
         [ page ]
@@ -31,14 +31,14 @@ export default function NewMovies () {
                 <h1 style={{ fontSize: 25, fontWeight: 'bold', fontStyle: 'italic' }}>Novedades</h1>
             </Col>
 
-            {listMovies.results ? (
+            {movies.results ? (
                 <Col span="24">
                     <Row>
-                        <MovieCatalog listMovies={listMovies} />
+                        <MovieCatalog movies={movies} />
                         <Col span={24}>
                             <Pagination
-                                currentPage={listMovies.page}
-                                totalItems={listMovies.total_results}
+                                currentPage={movies.page}
+                                totalItems={movies.total_results}
                                 onChangePage={onChangePage}
                             />
                         </Col>
